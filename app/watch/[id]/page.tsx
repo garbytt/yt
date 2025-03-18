@@ -1,11 +1,20 @@
-'use client';
-
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { ThumbsUp, ThumbsDown, Share2, Flag } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { VideoCard } from '@/components/video-card';
+import { VideoActions } from './video-actions';
+
+// 動的パラメータを生成する関数を追加
+export async function generateStaticParams() {
+  // ここでは仮のデータを使用していますが、実際のデータソースから取得するように変更してください
+  return [
+    { id: '1' },
+    { id: '2' },
+    { id: '3' },
+    // 必要に応じて他のIDを追加
+  ];
+}
 
 const video = {
   id: '1',
@@ -62,21 +71,7 @@ export default function WatchPage({ params }: { params: { id: string } }) {
               <Button className="ml-4">Subscribe</Button>
             </div>
             
-            <div className="flex items-center gap-2">
-              <Button variant="secondary" className="gap-2">
-                <ThumbsUp className="h-4 w-4" />
-                {video.likes.toLocaleString()}
-              </Button>
-              <Button variant="secondary" className="gap-2">
-                <ThumbsDown className="h-4 w-4" />
-              </Button>
-              <Button variant="secondary">
-                <Share2 className="h-4 w-4" />
-              </Button>
-              <Button variant="ghost">
-                <Flag className="h-4 w-4" />
-              </Button>
-            </div>
+            <VideoActions likes={video.likes} />
           </div>
           
           <Card className="p-4">
